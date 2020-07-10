@@ -1,6 +1,13 @@
 import React from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
+// import axios from '../../axios/posts';
 
+// import PostSearch from "./PostSearch";
+
+import { getAllPosts } from '../../store/actions';
+// import { }
+
+// show list of posts, attach edit button to each. goes to edit component with post info
 class PostList extends React.Component {
 	state = {
 		posts: [],
@@ -10,21 +17,44 @@ class PostList extends React.Component {
 	componentDidMount() {
 		console.log('pl mount');
 
-		axios.get('http://localhost:4000/api/list')
-			.then((res) => this.setState({ posts: res.data }))
-			.catch(err => {
-				console.error(err);
-			});
+		this.props.getAllPosts2();
+
+		// axios.get('http://localhost:4000/api/list')
+		// 	.then((res) => this.setState({ posts: res.data }))
+		// 	.catch(err => {
+		// 		console.error(err);
+		// 	});
+		console.log('pl mount2state: ', this.state);
+
+		console.log('pl mount2props: ', this.props);
+
+		this.setState({server: this.props.posts.apiReturn})
 	}
 
 	render() {
 		console.log('pl state: ', this.state);
+		console.log('pl props: ', this.props);
+
 		return (
 			<div>
-				post list
+				post list2
 			</div>
 		)
 	}
 }
 
-export default PostList;
+const mapStateToProps = (state, ownProps) => {
+	return {
+		posts: state.posts
+	}
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		getAllPosts2: () => dispatch(getAllPosts)
+	}
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostList);
+
+// export default PostList;

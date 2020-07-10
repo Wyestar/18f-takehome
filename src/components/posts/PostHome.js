@@ -1,14 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import PostSearch from './PostSearch';
+
 
 const PostHome = (props) => {
 	return (
 		<div>
-			post home - landing 2
+			post home 2
 			<div>
+				<PostSearch />
 
-				<Link to="/list" className="" >post list btn</Link>
+				{/*<Link to="/list" className="ui button primary" >post list btn</Link>*/}
 			</div>
 		</div>
 	)
