@@ -28,7 +28,7 @@ class PostList extends React.Component {
 
 		console.log('pl mount2props: ', this.props);
 
-		this.setState({server: this.props.posts.apiReturn})
+		// this.setState({posts: this.prop})
 	}
 
 	render() {
@@ -44,6 +44,7 @@ class PostList extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+	console.error('PL state: ', state)
 	return {
 		posts: state.posts
 	}

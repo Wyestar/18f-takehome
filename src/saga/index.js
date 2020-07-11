@@ -1,11 +1,11 @@
-import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeEvery, takeLatest, spawn, fork } from 'redux-saga/effects';
 // const {takeEvery} = ReduxSaga;
 
-import { GET_ALL_POSTS } from '../store/actions/types';
-import { FETCH_ALL_POSTS } from '../store/actions/dispatchTypes';
+import { GET_ALL_POSTS, GET_SEARCH_POST } from '../store/actions/types';
+import { FETCH_ALL_POSTS, FETCH_SEARCH_POST } from '../store/actions/dispatchTypes';
 
 
-function* sagaAsync() {
+function* getAllPostsSaga() {
 	console.error('saga11');
 	try {
 		console.error('saga22');
@@ -20,20 +20,27 @@ function* sagaAsync() {
 
 const getAllPostsSuccess = (data) => {
 	console.error('saga success: ', data)
-
     return {
         type: GET_ALL_POSTS,
         payload: data
     }
 }
-
 const getAllPostsError = (err) => {
 	console.error('saga error')
-
     return {
         type: GET_ALL_POSTS,
         payload: "there was an error"
     }
+}
+
+
+function* getSearchPostSaga(action) {
+console.error('search action: ', action);
+    yield put({
+        type: GET_SEARCH_POST,
+        action
+    })
+
 }
 
 
@@ -49,5 +56,8 @@ const getAllPostsError = (err) => {
 // }
 
 export default function* rootSaga() {
-    yield takeEvery(FETCH_ALL_POSTS, sagaAsync)
+    yield all([
+//         takeEvery(FETCH_ALL_POSTS, getAllPostsSaga),
+        takeEvery(FETCH_SEARCH_POST, getSearchPostSaga),
+    ])
 }

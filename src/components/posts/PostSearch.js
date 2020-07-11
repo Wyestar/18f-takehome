@@ -1,5 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 // import axios from '../../axios/posts';
+
+import { getSearchPost } from '../../store/actions';
 
 
 class PostSearch extends React.Component {
@@ -7,17 +11,22 @@ class PostSearch extends React.Component {
 		searchInput: ""
 	};
 
+
 	onSubmitHandler = (event) => {
 		event.preventDefault();
-		console.log('ps submit: ', this.state.searchInput);
+		console.log('ps submit: ', this.state);
+		this.props.getSearchPost2(this.state.searchInput);
 	};
 
 	onChangeHandler = (event) => {
 		this.setState({ searchInput: event.target.value} );
+
 	};
 
 	render() {
-		console.log('ps: ', this.state);
+		console.log('ps state: ', this.state);
+		console.log('ps props: ', this.props);
+
 		return (
 			<div>
 				post search component
@@ -39,4 +48,16 @@ class PostSearch extends React.Component {
 	}
 }
 
-export default PostSearch;
+const mapStateToProps = (state) => {
+	return {
+		post: state.post
+	}
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		getSearchPost2: (payload) => dispatch({ ...getSearchPost, payload })
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostSearch);
