@@ -9,8 +9,8 @@ export const postsReducer = (state = initialState, action) => {
 		case GET_ALL_POSTS:
 			console.error('reducer hit: ', action.payload);
 			// const obj = { kjsdfkasjdh: action.payload };
-			return { ...state, posts: action.payload };
-			// return { ...state, ..._.mapKeys(action.payload, 'id')};
+			// return { ...state, posts: action.payload };
+			return { ...state, ..._.mapKeys(action.payload, 'id')};
 		case GET_SEARCH_POST:
 			const obj2 = { post: 'this is the post that was searched'}
 			return { ...state, ...obj2 };
