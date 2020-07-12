@@ -1,2 +1,4 @@
 export const GET_ALL_POSTS = "GET_ALL_POSTS";
 export const GET_SEARCH_POST = "GET_SEARCH_POST";
+export const GET_PARTIAL_SEARCH_POST = "GET_PARTIAL_SEARCH_POST";
+export const PUT_POST = "PUT_POST";

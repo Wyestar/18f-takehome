@@ -1,5 +1,5 @@
 // import { GET_POSTS, GET_ALL_POSTS } from './types';
-import { FETCH_ALL_POSTS, FETCH_SEARCH_POST } from './dispatchTypes';
+import { FETCH_ALL_POSTS, FETCH_SEARCH_POST, FETCH_PARTIAL_SEARCH_POST, PATCH_POST } from './dispatchTypes';
 // import axios from '../../axios/posts';
 // import history from '../../history';
 
@@ -14,24 +14,25 @@ import { FETCH_ALL_POSTS, FETCH_SEARCH_POST } from './dispatchTypes';
 //     }
 // }
 
+// not needed, can be on home page
 export const getAllPosts = {
     type: FETCH_ALL_POSTS
 }
 
-// export const getSearchPost = (input) => {
-// console.error('action search input: ', input)
-//     return {
-//         type: FETCH_SEARCH_POST,
-//         payload: input
-//     }
-// }
-
+// this is the exact search, to be used in edit form
 export const getSearchPost = {
-        type: FETCH_SEARCH_POST,
-        payload: ""
-    };
+    type: FETCH_SEARCH_POST,
+    payload: ""
+};
 
-// export function changeText(value) {
-//  type: "CHANGE_TEXT",
-//  payload: {text:value},
-// }
+// this is the partial search, to be used on home page
+export const getPartialSearchPost = {
+    type: FETCH_PARTIAL_SEARCH_POST,
+    payload: ""
+}
+
+// edit post
+export const putPost = {
+    type: PATCH_POST,
+    payload: ""
+}

@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 // import axios from '../../axios/posts';
 
-// import PostSearch from "./PostSearch";
+import PostEdit from "./PostEdit";
 
 import { getAllPosts } from '../../store/actions';
 // import { }
@@ -15,20 +17,38 @@ class PostList extends React.Component {
 	};
 
 	componentDidMount() {
-		console.log('pl mount');
+		// console.log('pl mount');
 
-		this.props.getAllPosts2();
-
-		// axios.get('http://localhost:4000/api/list')
-		// 	.then((res) => this.setState({ posts: res.data }))
-		// 	.catch(err => {
-		// 		console.error(err);
-		// 	});
-		console.log('pl mount2state: ', this.state);
-
-		console.log('pl mount2props: ', this.props);
+		// this.props.getAllPosts2();
+		// console.log('pl mount2state: ', this.state);
+		// console.log('pl mount2props: ', this.props);
 
 		// this.setState({posts: this.prop})
+	}
+
+	renderPostsList() {
+		// this.props.fromState.postsStore.matchingPosts
+		return this.props.matchingPosts.map(post => {
+			return (
+				<div className="item" key={post.id}>
+					<div>
+						{post.title}
+					</div>
+
+					<div>
+						<i className="middle aligned icon chevron right"></i>edit post
+
+						<Link className="ui button primary" to={{
+							pathname: `/edit/${post.id}`,
+							post
+						}}>
+							edit post link</Link>
+
+					</div>
+
+				</div>
+			)
+		})
 	}
 
 	render() {
@@ -38,6 +58,14 @@ class PostList extends React.Component {
 		return (
 			<div>
 				post list2
+				{/*<PostEdit post={this.props.posts.plpl.allPosts[1]}/>*/}
+				{ this.props.matchingPosts.length &&
+
+					<div className="ui celled list">{this.renderPostsList()}
+
+					</div>
+
+				}
 			</div>
 		)
 	}
@@ -46,7 +74,7 @@ class PostList extends React.Component {
 const mapStateToProps = (state, ownProps) => {
 	console.error('PL state: ', state)
 	return {
-		posts: state.posts
+		fromState: state
 	}
 };
 

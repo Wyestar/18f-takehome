@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 
 // import axios from '../../axios/posts';
 
-import { getSearchPost } from '../../store/actions';
-
+import { getAllPosts, getSearchPost, getPartialSearchPost } from '../../store/actions';
 
 class PostSearch extends React.Component {
 	state = {
@@ -14,13 +13,17 @@ class PostSearch extends React.Component {
 
 	onSubmitHandler = (event) => {
 		event.preventDefault();
-		console.log('ps submit: ', this.state);
-		this.props.getSearchPost2(this.state.searchInput);
+		console.log('ps submit1: ', this.state);
+		// this.props.getSearchPost2(this.state.searchInput);
+
+		this.props.getPartialSearchPost2(this.state.searchInput);
+		console.log('ps submit2: ', this.state);
+		console.log('ps submit2: ', this.props);
+
 	};
 
 	onChangeHandler = (event) => {
 		this.setState({ searchInput: event.target.value} );
-
 	};
 
 	render() {
@@ -50,14 +53,16 @@ class PostSearch extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		post: state.post
+		fromState: state
 	}
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		getSearchPost2: (payload) => dispatch({ ...getSearchPost, payload })
+		getAllPosts2: () => dispatch(getAllPosts),
+		getSearchPost2: (payload) => dispatch({ ...getSearchPost, payload }),
+		getPartialSearchPost2: (payload) => dispatch({ ...getPartialSearchPost, payload })
 	}
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostSearch);
