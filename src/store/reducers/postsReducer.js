@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { GET_ALL_POSTS, GET_SEARCH_POST, GET_PARTIAL_SEARCH_POST, PUT_POST } from "../actions/types";
 // import postsReducer from "../../../../../react-2020/blog/src/reducers/postsReducer";
 
-const initialState = { storeStateTest: 'partial multi post search' };
+const initialState = { storeStateTest: 'this does nothing' };
 
 export const postsReducer = (state = initialState, action) => {
 	switch (action.type) {
@@ -25,14 +25,14 @@ export const postsReducer = (state = initialState, action) => {
 
 		case PUT_POST:
 			console.error('reducer edit test: ', action.payload);
-			// find post in store and edit it.
-			// return Object.assign({}, state, {})
-			return state;
+			console.error('reducer edit test store: ', state.allPosts);
 
+			const storeUpdate = { ...state, allPosts: [ ...state.allPosts.filter(post => post.id !== action.payload.id), {...action.payload} ] };
+			return Object.assign({}, state, storeUpdate);
 		default:
 			return state;
 	}
-}
+};
 
 // turn json into object with ids as obj keys
 // ..._.mapKeys(action.payload, 'id')

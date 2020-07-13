@@ -1,4 +1,4 @@
-import { all, call, put, takeEvery, takeLatest, spawn, fork } from 'redux-saga/effects';
+import { all, call, put, takeEvery, takeLatest, spawn, fork, select } from 'redux-saga/effects';
 import axios from '../axios/posts';
 
 import { GET_ALL_POSTS, GET_SEARCH_POST, GET_PARTIAL_SEARCH_POST, PUT_POST } from '../store/actions/types';
@@ -59,8 +59,12 @@ function* getSearchPostSaga(action) {
 function* getPartialSearchPostSaga(action) {
     console.error('partial search start11')
     try {
-        const res = yield call(axiosTest);
+//         const res = yield call(axiosTest);
 
+        // todo: res = store.allPosts
+        const state = yield select();
+        console.error('partial search select state: ', state)
+        const res = state.postsStore.allPosts;
         if (res) {
     console.error('partial search start22: ', action)
 
