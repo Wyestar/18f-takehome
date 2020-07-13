@@ -1,11 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import history from '../history';
-// import { browserHistory } from 'react-router';
-
 
 import Header from "./Header"
-
 import PostHome from "./posts/PostHome";
 import PostExtra from "./posts/PostExtra";
 

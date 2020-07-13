@@ -28,12 +28,11 @@ class PostHome extends React.Component {
 	};
 
 	render() {
-		console.log('ph state: ', this.state);
-		console.log('ph props: ', this.props);
+		// console.log('ph state: ', this.state);
+		// console.log('ph props: ', this.props);
 
 		return (
 			<div>
-				post home component
 				<div className="ui segment">
 					<form onSubmit={this.onSubmitHandler} className="ui form">
 						<div className="field">

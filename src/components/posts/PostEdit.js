@@ -29,7 +29,24 @@ class PostEdit extends React.Component {
 
 	enableEditHandler = (event) => {
 		event.preventDefault();
-		this.setState({ enableEditing: true });
+
+		const post = this.props.post;
+
+		if (event.target.value === "show") {
+			this.setState({
+				enableEditing: true
+			});
+		} else if (event.target.value === "hide") {
+			this.setState({
+				enableEditing: false,
+				editedPost: {
+					title: post.title,
+					body: post.body,
+					userId: post.userId,
+					id: post.id
+				}
+			});
+		}
 	};
 
 	onChangeHandler = (event) => {
@@ -54,34 +71,38 @@ class PostEdit extends React.Component {
 
 	onSubmitHandler = (event) => {
 		event.preventDefault();
-		this.props.putPost(this.state.editedPost)
+		this.props.putPost(this.state.editedPost);
 		this.props.searchInputHandler();
 	};
 
 	render() {
 		return (
 			<div>
-				<button className="ui button" onClick={this.enableEditHandler}>Show and edit</button>
+				<button className="ui button" value="show" onClick={this.enableEditHandler}>Show and edit</button>
 
 				{ this.state.enableEditing &&
 					<div>
+						<button className="ui button" value="hide" onClick={this.enableEditHandler}>Hide and reset</button>
 						<form onSubmit={this.onSubmitHandler} className="ui form">
-							<label>Edit this post</label>
-							<div>Title of post</div>
+							<p>Title of post</p>
 							<input
 								name="title"
 								type="text"
 								value={this.state.editedPost.title}
 								onChange={this.onChangeHandler}
 							/>
-							<div>Body of post</div>
+							<p>Body of post</p>
 							<input
 								name="body"
 								type="text"
 								value={this.state.editedPost.body}
 								onChange={this.onChangeHandler}
 							/>
-							<input className="ui button secondary" type="submit" value="Edit post"/>
+							<input
+								className="ui button secondary"
+								type="submit"
+								value="Edit post"
+							/>
 						</form>
 					</div>
 				}

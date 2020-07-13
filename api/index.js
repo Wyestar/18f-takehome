@@ -15,7 +15,6 @@ app.get('/', (req, res) => {
 
 app.get('/api/all', async (req, res) => {
     const { data } = await axios.get('https://jsonplaceholder.typicode.com/posts');
-//     console.log('data: ', data);
     res.json(data);
 });
 

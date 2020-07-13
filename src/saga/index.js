@@ -26,7 +26,8 @@ function* getAllPostsSaga() {
 // for exact title search, not used
 function* getSearchPostSaga(action) {
 	try {
-        const res = yield call(axiosTest);
+        const state = yield select();
+        const res = state.postsStore.allPosts;
         if (res) {
             let post = {}
             for (let i = 0; i < res.length; i++) {
