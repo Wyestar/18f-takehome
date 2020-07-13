@@ -1,49 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
-// import axios from '../../axios/posts';
+import PostEdit from "./PostEdit";
 
-import PostEdit2 from "./PostEdit2";
-
-import { getAllPosts } from '../../store/actions';
-// import { }
-
-// show list of posts, attach edit button to each. goes to edit component with post info
 class PostList extends React.Component {
 	state = {
 		posts: [],
 		server: ""
 	};
 
-	componentDidMount() {
-		// console.log('pl mount');
-
-		// this.props.getAllPosts2();
-		// console.log('pl mount2state: ', this.state);
-		// console.log('pl mount2props: ', this.props);
-
-		// this.setState({posts: this.prop})
-	}
-
 	renderPostsList() {
-		// this.props.fromState.postsStore.matchingPosts
 		return this.props.matchingPosts.map(post => {
 			return (
 				<div className="item" key={post.id}>
 					<div>
-						{post.title}
+						Id of post: {post.id}
 					</div>
 
 					<div>
-						<i className="middle aligned icon chevron right"></i>edit post
-						<PostEdit2 postId={post.id}/>
-						{/*<Link className="ui button primary" to={{*/}
-						{/*	pathname: `/edit/${post.id}`,*/}
-						{/*	post*/}
-						{/*}}>*/}
-						{/*	edit post link</Link>*/}
-
+						<PostEdit searchInputHandler={this.props.searchInputHandler} postId={post.id}/>
 					</div>
 
 				</div>
@@ -57,33 +32,20 @@ class PostList extends React.Component {
 
 		return (
 			<div>
-				post list2
-				{/*<PostEdit post={this.props.posts.plpl.allPosts[1]}/>*/}
+				Posts with matching titles:
 				{ this.props.matchingPosts.length &&
-
 					<div className="ui celled list">{this.renderPostsList()}
-
 					</div>
-
 				}
 			</div>
 		)
 	}
 }
 
-const mapStateToProps = (state, ownProps) => {
-	// console.error('PL state: ', state)
+const mapStateToProps = (state) => {
 	return {
 		fromState: state
 	}
 };
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		getAllPosts2: () => dispatch(getAllPosts)
-	}
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostList);
-
-// export default PostList;
+export default connect(mapStateToProps, null)(PostList);

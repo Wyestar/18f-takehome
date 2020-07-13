@@ -7,8 +7,7 @@ import history from '../history';
 import Header from "./Header"
 
 import PostHome from "./posts/PostHome";
-import PostList from "./posts/PostList";
-import PostEdit from "./posts/PostEdit";
+import PostExtra from "./posts/PostExtra";
 
 
 const App = () => {
@@ -19,8 +18,8 @@ const App = () => {
 					<Header />
 					<Switch>
 						<Route path={["/", "/home"]} exact component={PostHome}/>
-						{/*<Route path={["/list", "/all"]} exact component={PostList}/>*/}
-						{/*<Route path="/edit/:id" exact component={PostEdit} />*/}
+						<Route path="/extra" exact component={PostExtra}/>
+
 					</Switch>
 				</div>
 			</Router>

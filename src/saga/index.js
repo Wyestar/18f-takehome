@@ -5,36 +5,25 @@ import { GET_ALL_POSTS, GET_SEARCH_POST, GET_PARTIAL_SEARCH_POST, PUT_POST } fro
 import { FETCH_ALL_POSTS, FETCH_SEARCH_POST, FETCH_PARTIAL_SEARCH_POST, PATCH_POST } from '../store/actions/dispatchTypes';
 
 const axiosTest = () => {
-    return axios.get('http://localhost:4000/api/all')
+    return axios.get('/api/all')
     .then(res => res.data)
     .catch(err => err)
 }
 
 function* getAllPostsSaga() {
-	console.error('saga11');
-
 	try {
-		console.error('saga22');
         const res = yield call(axiosTest);
 
         if (res) {
-            console.error('saga33: ', res);
             yield put({ type: GET_ALL_POSTS, payload: res });
         }
     } catch (error) {
-//         yield put(getAllPostsError(error));
+        yield put({ type: GET_ALL_POSTS, payload: error });
     }
 
 }
 
-
-
-// edit form search
-// inputted title must be exact match
-// {   "userId": 1,
-//     "id": 2,
-//     "title": "qui est esse",
-//     "body": "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla" }
+// for exact title search, not used
 function* getSearchPostSaga(action) {
 	try {
         const res = yield call(axiosTest);
@@ -54,24 +43,15 @@ function* getSearchPostSaga(action) {
 }
 
 
-// partial search
-// home page search, searches for 'matching' titles
+// for partial title search
 function* getPartialSearchPostSaga(action) {
-    console.error('partial search start11')
     try {
-//         const res = yield call(axiosTest);
-
-        // todo: res = store.allPosts
         const state = yield select();
-        console.error('partial search select state: ', state)
         const res = state.postsStore.allPosts;
         if (res) {
-    console.error('partial search start22: ', action)
-
             let input = action.payload.split(" ");
-                console.error('partial search start33 - input: ', input)
-
             let matchingPosts = [];
+
             for (let i = 0; i < res.length; i++) {
                 let title = res[i].title.split(" ");
 
@@ -79,26 +59,20 @@ function* getPartialSearchPostSaga(action) {
                      matchingPosts.push(res[i]);
                  }
             }
-            console.error('matching posts from input: ', matchingPosts);
 
             yield put({ type: GET_PARTIAL_SEARCH_POST, payload: matchingPosts });
         }
     } catch (error) {
+        yield put({ type: GET_PARTIAL_SEARCH_POST, payload: error });
     }
 }
 
-// edit post in store
+// for post edit
 function* putPostSaga(action) {
     try {
-        console.error('SAGA put post: ', action);
-//         body: "est rerum tempore vitae↵sequi sint nihil reprehenderit dolor beatae ea dolores neque↵fugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis↵qui aperiam non debitis possimus qui neque nisi nulla"
-//         id: 2
-//         payload: {}
-//         title: "qui est esse321"
-//         type: "PATCH_POST"
-//         userId: 1
         yield put({ type: PUT_POST, payload: action.payload });
     } catch (error) {
+        yield put({ type: PUT_POST, payload: error });
     }
 }
 

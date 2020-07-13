@@ -3,12 +3,9 @@ import { connect } from 'react-redux';
 
 import { putPost } from '../../store/actions';
 
-
-// enable edit of title that changes post
 class PostEdit extends React.Component {
 	state = {
-		enableEditTitle: false,
-		enableEditBody: false,
+		enableEditing: false,
 		editedPost: {
 			title: "",
 			body: "",
@@ -17,72 +14,85 @@ class PostEdit extends React.Component {
 		}
 	};
 
-	componentDidMount() {
-		this.setState({
-			editedPost: Object.assign({}, this.state.editedPost, this.props.location.post)
-		})
+	findPost(id) {
+		const post = this.props.fromState.postsStore.allPosts.find(elem => (elem.id === id));
+		return post;
 	}
 
-	onEditTitleChangeHandler = (event) => {
-		// event.preventDefault();
-		console.error('PE edit title submit: ', event.target);
+	componentDidMount() {
+		const post = this.findPost(this.props.postId);
+
 		this.setState({
 			editedPost: {
-				title: event.target.value
+				title: post.title,
+				body: post.body,
+				userId: post.userId,
+				id: post.id
 			}
 		});
+	}
 
+	enableEditHandler = (event) => {
+		event.preventDefault();
+		this.setState({ enableEditing: true });
 	};
 
-	onEditTitleSubmitHandler = (event) => {
-		event.preventDefault();
-		console.error('PE edit title submit: ', this.state.editedPost.title)
-		// send new post data to store
-		// this.props.putPost2
+	onChangeHandler = (event) => {
+		event.persist();
 
+		if (event.target.name === "title") {
+			this.setState(prevState => ({
+				editedPost: {
+					...prevState.editedPost,
+					title: event.target.value
+				}
+			}));
+		} else if (event.target.name === "body") {
+			this.setState(prevState => ({
+				editedPost: {
+					...prevState.editedPost,
+					body: event.target.value
+				}
+			}))
+		}
 	};
 
-	enableEditTitleHandler = (event) => {
+	onSubmitHandler = (event) => {
 		event.preventDefault();
-		this.setState({
-			enableEditTitle: true
-		})
+		this.props.putPost(this.state.editedPost)
+		this.props.searchInputHandler();
 	};
 
 	render() {
-		const postData = this.props.location.post;
-		// postData.id, postData.userId
-		console.log('PE props: ', postData);
-		console.log('PE state: ', this.state.editedPost);
+		// console.log('PE state:', this.state);
+		// console.log('PE props:', this.props);
+
 		return (
 			<div>
-				post edit2
-				<div className="ui segment">
+				<button className="ui button" onClick={this.enableEditHandler}>Show and edit</button>
 
-					{postData.title}
-
-					<button className="ui button" onClick={this.enableEditTitleHandler}>enable edit button</button>
-
-					{ this.state.enableEditTitle &&
-
-						<form onSubmit={this.onEditTitleSubmitHandler} className="ui form">
-							<label>edit this post's title</label>
+				{ this.state.enableEditing &&
+					<div>
+						<form onSubmit={this.onSubmitHandler} className="ui form">
+							<label>Edit this post</label>
+							<div>Title of post</div>
 							<input
+								name="title"
 								type="text"
 								value={this.state.editedPost.title}
-								onChange={this.onEditTitleChangeHandler}
+								onChange={this.onChangeHandler}
 							/>
-							<input className="ui button secondary" type="submit" value="Edit title"/>
-							<input className="ui button primary" type="submit" value="Search exact title"/>
+							<div>Body of post</div>
+							<input
+								name="body"
+								type="text"
+								value={this.state.editedPost.body}
+								onChange={this.onChangeHandler}
+							/>
+							<input className="ui button secondary" type="submit" value="Edit post"/>
 						</form>
-					}
-					<div>break</div>
-
-					{/*<form onSubmit={this.onEditBodySubmitHandler} className="ui form">*/}
-					{/*	{post.body}*/}
-					{/*	<input className="ui button secondary" type="submit" value="Edit body"/>*/}
-					{/*</form>*/}
-				</div>
+					</div>
+				}
 			</div>
 		)
 	}
@@ -96,7 +106,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		putPost2: (payload) => dispatch( { ...putPost, payload } )
+		putPost: (payload) => dispatch({ ...putPost, ...{payload: payload}})
 	}
 };
 
