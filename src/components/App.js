@@ -20,7 +20,7 @@ const App = () => {
 					<Switch>
 						<Route path={["/", "/home"]} exact component={PostHome}/>
 						{/*<Route path={["/list", "/all"]} exact component={PostList}/>*/}
-						<Route path="/edit/:id" exact component={PostEdit} />
+						{/*<Route path="/edit/:id" exact component={PostEdit} />*/}
 					</Switch>
 				</div>
 			</Router>

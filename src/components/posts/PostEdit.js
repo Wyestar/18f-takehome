@@ -25,20 +25,20 @@ class PostEdit extends React.Component {
 
 	onEditTitleChangeHandler = (event) => {
 		// event.preventDefault();
-		console.error('PE edit title submit: ', event.target.value)
+		console.error('PE edit title submit: ', event.target);
 		this.setState({
 			editedPost: {
 				title: event.target.value
 			}
-		})
+		});
 
 	};
 
 	onEditTitleSubmitHandler = (event) => {
 		event.preventDefault();
-		console.error('PE edit title submit: ', event.target.value)
+		console.error('PE edit title submit: ', this.state.editedPost.title)
 		// send new post data to store
-
+		// this.props.putPost2
 
 	};
 

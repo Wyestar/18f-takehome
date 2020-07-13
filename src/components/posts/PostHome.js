@@ -19,12 +19,12 @@ class PostHome extends React.Component {
 
 	onSubmitHandler = (event) => {
 		event.preventDefault();
-		console.log('ph submit1: ', this.state.searchInput);
+		// console.log('ph submit1: ', this.state.searchInput);
 		// this.props.getSearchPost2(this.state.searchInput);
 
 		this.props.getPartialSearchPost2(this.state.searchInput);
-		console.log('ph submit2: ', this.state);
-		console.log('ph submit2: ', this.props);
+		// console.log('ph submit2: ', this.state);
+		// console.log('ph submit2: ', this.props);
 
 	};
 

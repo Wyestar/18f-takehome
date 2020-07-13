@@ -24,9 +24,10 @@ export const postsReducer = (state = initialState, action) => {
 			return Object.assign({}, state, { matchingPosts: action.payload });
 
 		case PUT_POST:
-			console.error('reducer edit: ', action.payload);
+			console.error('reducer edit test: ', action.payload);
 			// find post in store and edit it.
-			return Object.assign({}, state, {})
+			// return Object.assign({}, state, {})
+			return state;
 
 		default:
 			return state;

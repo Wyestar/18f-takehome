@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 // import axios from '../../axios/posts';
 
-import PostEdit from "./PostEdit";
+import PostEdit2 from "./PostEdit2";
 
 import { getAllPosts } from '../../store/actions';
 // import { }
@@ -37,12 +37,12 @@ class PostList extends React.Component {
 
 					<div>
 						<i className="middle aligned icon chevron right"></i>edit post
-
-						<Link className="ui button primary" to={{
-							pathname: `/edit/${post.id}`,
-							post
-						}}>
-							edit post link</Link>
+						<PostEdit2 postId={post.id}/>
+						{/*<Link className="ui button primary" to={{*/}
+						{/*	pathname: `/edit/${post.id}`,*/}
+						{/*	post*/}
+						{/*}}>*/}
+						{/*	edit post link</Link>*/}
 
 					</div>
 
@@ -52,8 +52,8 @@ class PostList extends React.Component {
 	}
 
 	render() {
-		console.log('pl state: ', this.state);
-		console.log('pl props: ', this.props);
+		// console.log('pl state: ', this.state);
+		// console.log('pl props: ', this.props);
 
 		return (
 			<div>
@@ -72,7 +72,7 @@ class PostList extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-	console.error('PL state: ', state)
+	// console.error('PL state: ', state)
 	return {
 		fromState: state
 	}

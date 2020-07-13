@@ -27,20 +27,6 @@ function* getAllPostsSaga() {
 
 }
 
-// const getAllPostsSuccess = (data) => {
-// 	console.error('saga success: ', data)
-//     return {
-//         type: GET_ALL_POSTS,
-//         payload: data
-//     }
-// }
-// const getAllPostsError = (err) => {
-// 	console.error('saga error')
-//     return {
-//         type: GET_ALL_POSTS,
-//         payload: "there was an error"
-//     }
-// }
 
 
 // edit form search
@@ -100,8 +86,14 @@ function* getPartialSearchPostSaga(action) {
 // edit post in store
 function* putPostSaga(action) {
     try {
-        console.error('put post: ', action);
-        yield pu({ type: PUT_POST, payload: action.payload });
+        console.error('SAGA put post: ', action);
+//         body: "est rerum tempore vitae↵sequi sint nihil reprehenderit dolor beatae ea dolores neque↵fugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis↵qui aperiam non debitis possimus qui neque nisi nulla"
+//         id: 2
+//         payload: {}
+//         title: "qui est esse321"
+//         type: "PATCH_POST"
+//         userId: 1
+        yield put({ type: PUT_POST, payload: action.payload });
     } catch (error) {
     }
 }
