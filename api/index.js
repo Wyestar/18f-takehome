@@ -10,7 +10,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
-  res.send('test server');
+  res.send('testing server');
 });
 
 app.get('/api/all', async (req, res) => {

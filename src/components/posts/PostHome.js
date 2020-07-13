@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getAllPosts, getSearchPost, getPartialSearchPost } from '../../store/actions';
-import PostList from "./PostList";
+import { getAllPosts, getPartialSearchPost } from '../../store/actions';
 
+import PostList from "./PostList";
 
 class PostHome extends React.Component {
 	state = {
@@ -49,8 +49,9 @@ class PostHome extends React.Component {
 				</div>
 
 				<div>
-					{this.props.fromState.postsStore.matchingPosts &&
-					<PostList searchInputHandler= {this.searchInputHandler}
+					{this.props.fromState.postsStore.matchingPosts.length > 0 &&
+					<PostList
+						searchInputHandler= {this.searchInputHandler}
 						matchingPosts={this.props.fromState.postsStore.matchingPosts}/>
 					}
 				</div>

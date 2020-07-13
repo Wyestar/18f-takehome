@@ -14,13 +14,8 @@ class PostEdit extends React.Component {
 		}
 	};
 
-	findPost(id) {
-		const post = this.props.fromState.postsStore.allPosts.find(elem => (elem.id === id));
-		return post;
-	}
-
 	componentDidMount() {
-		const post = this.findPost(this.props.postId);
+		const post = this.props.post;
 
 		this.setState({
 			editedPost: {
@@ -64,9 +59,6 @@ class PostEdit extends React.Component {
 	};
 
 	render() {
-		// console.log('PE state:', this.state);
-		// console.log('PE props:', this.props);
-
 		return (
 			<div>
 				<button className="ui button" onClick={this.enableEditHandler}>Show and edit</button>
@@ -98,16 +90,10 @@ class PostEdit extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		fromState: state
-	}
-};
-
 const mapDispatchToProps = (dispatch) => {
 	return {
 		putPost: (payload) => dispatch({ ...putPost, ...{payload: payload}})
 	}
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostEdit);
+export default connect(null, mapDispatchToProps)(PostEdit);

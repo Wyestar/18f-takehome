@@ -4,7 +4,7 @@ import axios from '../axios/posts';
 import { GET_ALL_POSTS, GET_SEARCH_POST, GET_PARTIAL_SEARCH_POST, PUT_POST } from '../store/actions/types';
 import { FETCH_ALL_POSTS, FETCH_SEARCH_POST, FETCH_PARTIAL_SEARCH_POST, PATCH_POST } from '../store/actions/dispatchTypes';
 
-const axiosTest = () => {
+const axiosAll = () => {
     return axios.get('/api/all')
     .then(res => res.data)
     .catch(err => err)
@@ -12,7 +12,7 @@ const axiosTest = () => {
 
 function* getAllPostsSaga() {
 	try {
-        const res = yield call(axiosTest);
+        const res = yield call(axiosAll);
 
         if (res) {
             yield put({ type: GET_ALL_POSTS, payload: res });

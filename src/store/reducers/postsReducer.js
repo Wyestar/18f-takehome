@@ -1,7 +1,11 @@
 import _ from 'lodash';
 import { GET_ALL_POSTS, GET_SEARCH_POST, GET_PARTIAL_SEARCH_POST, PUT_POST } from "../actions/types";
 
-const initialState = { storeStateTest: 'this does nothing' };
+const initialState = {
+	allPosts: [],
+	matchingPosts: [],
+	storeStateTest: 'this does nothing'
+};
 
 export const postsReducer = (state = initialState, action) => {
 	switch (action.type) {
@@ -12,7 +16,7 @@ export const postsReducer = (state = initialState, action) => {
 
 		case GET_SEARCH_POST:
 			console.error('reducer exact search: ', action.payload);
-			return Object.assign({}, state, { post: action.payload } );
+			return Object.assign({}, state, { exactPost: action.payload } );
 
 		case GET_PARTIAL_SEARCH_POST:
 			console.error('reducer partial search: ', action.payload);
