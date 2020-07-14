@@ -18,5 +18,5 @@ export const getPartialSearchPost = {
 
 export const putPost = {
     type: PATCH_POST,
-    payload: ""
+    payload: null
 }

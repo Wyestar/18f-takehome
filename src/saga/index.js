@@ -4,19 +4,18 @@ import axios from '../axios/posts';
 import { GET_ALL_POSTS, GET_SEARCH_POST, GET_PARTIAL_SEARCH_POST, PUT_POST } from '../store/actions/types';
 import { FETCH_ALL_POSTS, FETCH_SEARCH_POST, FETCH_PARTIAL_SEARCH_POST, PATCH_POST } from '../store/actions/dispatchTypes';
 
-const axiosAll = () => {
+export const axiosAll = () => {
     return axios.get('/api/all')
     .then(res => res.data)
     .catch(err => err)
 }
 
-function* getAllPostsSaga() {
+export function* getAllPostsSaga() {
 	try {
         const res = yield call(axiosAll);
 
-        if (res) {
-            yield put({ type: GET_ALL_POSTS, payload: res });
-        }
+        yield put({ type: GET_ALL_POSTS, payload: res });
+
     } catch (error) {
         yield put({ type: GET_ALL_POSTS, payload: error });
     }
@@ -24,7 +23,7 @@ function* getAllPostsSaga() {
 }
 
 // for exact title search, not used
-function* getSearchPostSaga(action) {
+export function* getSearchPostSaga(action) {
 	try {
         const state = yield select();
         const res = state.postsStore.allPosts;
@@ -45,11 +44,11 @@ function* getSearchPostSaga(action) {
 
 
 // for partial title search
-function* getPartialSearchPostSaga(action) {
+export function* getPartialSearchPostSaga(action) {
     try {
         const state = yield select();
         const res = state.postsStore.allPosts;
-        if (res) {
+        //if (res) {
             let input = action.payload.split(" ");
             let matchingPosts = [];
 
@@ -62,14 +61,14 @@ function* getPartialSearchPostSaga(action) {
             }
 
             yield put({ type: GET_PARTIAL_SEARCH_POST, payload: matchingPosts });
-        }
+        //}
     } catch (error) {
         yield put({ type: GET_PARTIAL_SEARCH_POST, payload: error });
     }
 }
 
 // for post edit
-function* putPostSaga(action) {
+export function* putPostSaga(action) {
     try {
         yield put({ type: PUT_POST, payload: action.payload });
     } catch (error) {
