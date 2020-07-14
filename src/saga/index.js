@@ -15,11 +15,9 @@ export function* getAllPostsSaga() {
         const res = yield call(axiosAll);
 
         yield put({ type: GET_ALL_POSTS, payload: res });
-
     } catch (error) {
         yield put({ type: GET_ALL_POSTS, payload: error });
     }
-
 }
 
 // for exact title search, not used
@@ -27,16 +25,16 @@ export function* getSearchPostSaga(action) {
 	try {
         const state = yield select();
         const res = state.postsStore.allPosts;
-        if (res) {
-            let post = {}
-            for (let i = 0; i < res.length; i++) {
-                if (res[i].title === action.payload) {
-                    post = res[i];
-                    break;
-                }
+        let post = {};
+
+        for (let i = 0; i < res.length; i++) {
+            if (res[i].title === action.payload) {
+                post = res[i];
+                break;
             }
-            yield put({ type: GET_SEARCH_POST, payload: post });
         }
+
+        yield put({ type: GET_SEARCH_POST, payload: post });
     } catch (error) {
         yield put({ type: GET_SEARCH_POST, payload: error });
     }
@@ -48,20 +46,17 @@ export function* getPartialSearchPostSaga(action) {
     try {
         const state = yield select();
         const res = state.postsStore.allPosts;
-        //if (res) {
-            let input = action.payload.split(" ");
-            let matchingPosts = [];
+        let input = action.payload.split(" ");
+        let matchingPosts = [];
 
-            for (let i = 0; i < res.length; i++) {
-                let title = res[i].title.split(" ");
+        for (let i = 0; i < res.length; i++) {
+            let title = res[i].title.split(" ");
+             if ( input.some(elem => title.includes(elem)) ) {
+                 matchingPosts.push(res[i]);
+             }
+        }
 
-                 if ( input.some(elem => title.includes(elem)) ) {
-                     matchingPosts.push(res[i]);
-                 }
-            }
-
-            yield put({ type: GET_PARTIAL_SEARCH_POST, payload: matchingPosts });
-        //}
+        yield put({ type: GET_PARTIAL_SEARCH_POST, payload: matchingPosts });
     } catch (error) {
         yield put({ type: GET_PARTIAL_SEARCH_POST, payload: error });
     }

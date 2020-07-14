@@ -7,10 +7,10 @@ class PostEdit extends React.Component {
 	state = {
 		enableEditing: false,
 		editedPost: {
-			title: "",
-			body: "",
 			userId: 0,
-			id: 0
+			id: 0,
+			title: "",
+			body: ""
 		}
 	};
 

@@ -23,8 +23,10 @@ export const postsReducer = (state = initialState, action) => {
 
 		case PUT_POST:
 			// console.error('reducer edit: ', action.payload);
-			const storeUpdate = { ...state, allPosts: [ ...state.allPosts.filter(post => post.id !== action.payload.id), {...action.payload} ] };
-			return Object.assign({}, state, storeUpdate, {matchingPosts: []});
+			const allPosts = state.allPosts;
+			const index = state.allPosts.findIndex(elem => elem.id === action.payload.id);
+			allPosts[index] = action.payload;
+			return Object.assign({}, state, {allPosts: allPosts}, {matchingPosts: []});
 
 		default:
 			return state;
