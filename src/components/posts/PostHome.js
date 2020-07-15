@@ -28,8 +28,7 @@ class PostHome extends React.Component {
 	};
 
 	render() {
-		// console.log('ph state: ', this.state);
-		// console.log('ph props: ', this.props);
+		const canSearch = this.state.searchInput;
 
 		return (
 			<div>
@@ -42,7 +41,12 @@ class PostHome extends React.Component {
 								value={this.state.searchInput}
 								onChange={this.onChangeHandler}
 							/>
-							<input className="ui button primary" type="submit" value="Search"/>
+							<input
+								className="ui button primary"
+								type="submit"
+								disabled={!canSearch}
+								value="Search"
+							/>
 						</div>
 					</form>
 				</div>

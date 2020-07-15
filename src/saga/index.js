@@ -24,12 +24,12 @@ export function* getAllPostsSaga() {
 export function* getSearchPostSaga(action) {
 	try {
         const state = yield select();
-        const res = state.postsStore.allPosts;
+        const allPosts = state.postsStore.allPosts;
         let post = {};
 
-        for (let i = 0; i < res.length; i++) {
-            if (res[i].title === action.payload) {
-                post = res[i];
+        for (let i = 0; i < allPosts.length; i++) {
+            if (allPosts[i].title === action.payload) {
+                post = allPosts[i];
                 break;
             }
         }
@@ -45,14 +45,14 @@ export function* getSearchPostSaga(action) {
 export function* getPartialSearchPostSaga(action) {
     try {
         const state = yield select();
-        const res = state.postsStore.allPosts;
+        const allPosts = state.postsStore.allPosts;
         let input = action.payload.split(" ");
         let matchingPosts = [];
 
-        for (let i = 0; i < res.length; i++) {
-            let title = res[i].title.split(" ");
+        for (let i = 0; i < allPosts.length; i++) {
+            let title = allPosts[i].title.split(" ");
              if ( input.some(elem => title.includes(elem)) ) {
-                 matchingPosts.push(res[i]);
+                 matchingPosts.push(allPosts[i]);
              }
         }
 
@@ -65,7 +65,13 @@ export function* getPartialSearchPostSaga(action) {
 // for post edit
 export function* putPostSaga(action) {
     try {
-        yield put({ type: PUT_POST, payload: action.payload });
+        const state = yield select();
+
+        const allPosts = state.postsStore.allPosts;
+        const index = allPosts.findIndex(elem => elem.id === action.payload.id);
+		allPosts[index] = action.payload;
+
+        yield put({ type: PUT_POST, payload: allPosts });
     } catch (error) {
         yield put({ type: PUT_POST, payload: error });
     }

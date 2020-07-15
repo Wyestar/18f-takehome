@@ -69,21 +69,13 @@ describe('postsReducer test', () => {
 	});
 
 	it('should return state with updated post for PUT_POST', () => {
-		const editedPost = {
-			userId: 1,
-			id: 2,
-			title: 'title two update',
-			body: 'body two update'
-		};
 		const putPostAction = {
 			type: PUT_POST,
-			payload: editedPost
+			payload: mockPosts
 		};
-		const storeForUpdate = { ...initialState, ...{ allPosts: mockPosts } };
-		const store = postsReducer(storeForUpdate, putPostAction);
-		const updatedPost = store.allPosts.find(elem => elem.id === editedPost.id);
+		const store = postsReducer(initialState, putPostAction);
 
-		expect(updatedPost).toEqual(editedPost);
+		expect(store.allPosts).toEqual(mockPosts);
 	});
 
 });

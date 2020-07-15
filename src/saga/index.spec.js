@@ -58,11 +58,19 @@ describe('getPartialSearchPostSaga test', (action = { payload: 'title two' }) =>
 	});
 });
 
-describe('putPostSaga test', (action = {}) => {
+describe('putPostSaga test', (action = { payload: { id: 3, userId: 2, title: 'three-title-update', body: 'three-body-update' } }) => {
 	const it = sagaHelper(putPostSaga(action));
 
-	it('should send the updated post to reducer', (result) => {
-		const resultType = result.payload.action.type;
-		expect(resultType).toBe(PUT_POST);
+	it('should get state from store', (result) => {
+		expect(result).toEqual(select());
+		return mockPosts;
+	});
+
+	it('should return all posts with updated post', (result) => {
+		const allPosts = result.payload.action.payload;
+
+		expect(allPosts[2].title).toBe('three-title-update');
+		expect(allPosts[2].body).toBe('three-body-update');
+		expect(result.payload.action.type).toBe(PUT_POST);
 	});
 });

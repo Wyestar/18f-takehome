@@ -56,14 +56,14 @@ class PostEdit extends React.Component {
 			this.setState(prevState => ({
 				editedPost: {
 					...prevState.editedPost,
-					title: event.target.value
+					title: event.target.value.toLowerCase()
 				}
 			}));
 		} else if (event.target.name === "body") {
 			this.setState(prevState => ({
 				editedPost: {
 					...prevState.editedPost,
-					body: event.target.value
+					body: event.target.value.toLowerCase()
 				}
 			}))
 		}
@@ -76,6 +76,7 @@ class PostEdit extends React.Component {
 	};
 
 	render() {
+		const canSubmit = this.state.editedPost.title && this.state.editedPost.body;
 		return (
 			<div>
 				<button className="ui button" value="show" onClick={this.enableEditHandler}>Show and edit</button>
@@ -101,6 +102,7 @@ class PostEdit extends React.Component {
 							<input
 								className="ui button secondary"
 								type="submit"
+								disabled={!canSubmit}
 								value="Edit post"
 							/>
 						</form>
